@@ -1,0 +1,2 @@
+1) Vou utilizar a estrutura da lista linear sequencial apresentada em aula para realizar os testes
+2) A seguir, implementar uma função para ordenar pelo bubble, com 1 chave
