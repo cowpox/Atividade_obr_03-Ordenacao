@@ -90,6 +90,23 @@ void quick_sort_recursion(LISTA* lista, int left, int right) {
     quick_sort_recursion(lista, j + 1, right);  // ordena à esquerda do pivot
 }
 
+void quick_sort_recursion_mediana3(LISTA* lista, int left, int right) {
+    int j;
+    if (right <= left) return;
+
+    //compara 3 pivot (esquerda, meio e direita)
+    //e coloca o mediano na direita, para ser o pivot do qs
+    comp_swap(lista->A[(left + right) / 2], lista->A[right]);
+    comp_swap(lista->A[left], lista->A[(left + right) / 2]);
+    comp_swap(lista->A[right], lista->A[(left + right) / 2]);
+
+
+    j = quick_sort_partition(lista, left, right);  // posição do pivot
+
+    quick_sort_recursion(lista, left, j - 1);   // ordena à esquerda do pivot
+    quick_sort_recursion(lista, j + 1, right);  // ordena à esquerda do pivot
+}
+
 int main() {
     LISTA lista_base, lista;
     // Inicializa o gerador de números aleatórios com uma semente baseada no tempo atual
@@ -242,6 +259,30 @@ int main() {
     printf("Ordenando a lista - quick sort\n");
     inicio = clock();  // Início da medição
     quick_sort_recursion(&lista, 0, TOTAL_ELEMENTOS - 1);
+    fim = clock();  // Fim da medição
+
+    // Exibindo o estado final da lista
+    printf("Estado final da lista:\n");
+    exibirLista(&lista);
+
+    // Calcula o tempo gasto em segundos
+    tempo_gasto = ((double)(fim - inicio)) / CLOCKS_PER_SEC;
+    printf("Tempo de execução: %.2f segundos\n", tempo_gasto);
+
+
+
+    // quick sort - completo - mediana de 3 pivots
+    lista = lista_base;
+
+    // Exibindo o estado inicial da lista
+    printf("\nEstado inicial da lista:\n");
+    exibirLista(&lista);
+    printf("Numero de elementos na lista: %i.\n", tamanho(&lista));
+
+
+    printf("Ordenando a lista - quick sort com mediana de 3 pivot\n");
+    inicio = clock();  // Início da medição
+    quick_sort_recursion_mediana3(&lista, 0, TOTAL_ELEMENTOS - 1);
     fim = clock();  // Fim da medição
 
     // Exibindo o estado final da lista

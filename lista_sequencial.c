@@ -43,7 +43,7 @@ bool carregarDadosCSV(const char* nomeArquivo, LISTA* lista) {
         return false;
     }
 
-    char linha[100];
+    char linha[256];  // Aumentamos o tamanho do buffer
     int linhaAtual = 0;
 
     // Ler cada linha do arquivo
@@ -79,19 +79,31 @@ bool carregarDadosCSV(const char* nomeArquivo, LISTA* lista) {
             continue;
         }
         strncpy(reg.nome, token, sizeof(reg.nome));
-        reg.nome[strcspn(reg.nome, "\n")] = '\0';  // Remover o caractere de nova linha, se presente
+        reg.nome[strcspn(reg.nome, "\n")] = '\0';  // Remover o caractere de nova linha
 
         // Inserir na lista
         if (!inserirElemLista(lista, reg, lista->nroElem)) {
-            printf("Erro ao inserir elemento na lista\n");
+            printf("Erro ao inserir elemento na lista. Total inserido: %d\n", linhaAtual - 1);
             fclose(arquivo);
             return false;
         }
+
+        // Mensagem de progresso
+        // if (linhaAtual % 10000 == 0) {
+        //     printf("Processadas %d linhas...\n", linhaAtual);
+        // }
     }
 
     fclose(arquivo);
+    printf("Total de linhas processadas: %d\n", linhaAtual - 1);
     return true;
 }
 
+void copiarLista(LISTA* destino, LISTA* origem) {
+    destino->nroElem = origem->nroElem;
+    for (int i = 0; i < origem->nroElem; i++) {
+        destino->A[i] = origem->A[i];
+    }
+}
 
 

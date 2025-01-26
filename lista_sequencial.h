@@ -3,7 +3,8 @@
 
 #include <stdbool.h>
 
-#define MAX 5000
+// #define MAX 500
+#define MAX 500000
 #define ERRO -1
 
 typedef int TIPOCHAVE;
@@ -25,5 +26,6 @@ int tamanho(LISTA* l);
 bool inserirElemLista(LISTA* l, REGISTRO reg, int i);
 void exibirLista(LISTA* l);
 bool carregarDadosCSV(const char* nomeArquivo, LISTA* lista);
+void copiarLista(LISTA* destino, LISTA* origem);
 
 #endif
