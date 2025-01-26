@@ -8,7 +8,8 @@ typedef REGISTRO ITEM;
 #define key(A) (A.chave)
 // #define less(A, B) (key(A) < key(B)) // para apenas 1 chave
 #define less(A, B) ((key(A) < key(B)) || (key(A) == key(B) && (A.chave2 < B.chave2))) // para 2 chaves
-#define lessequal(A, B) (key(A) <= key(B))
+// #define lessequal(A, B) (key(A) <= key(B)) // para apenas 1 chave
+#define lessequal(A, B) ((key(A) < key(B)) || (key(A) == key(B) && (A.chave2 <= B.chave2))) // para 2 chaves
 #define swap(A, B) {ITEM temp = A; A = B; B = temp;}
 #define comp_swap(A, B) {if (less(B, A)) swap(A, B);}
 #define TOTAL_ELEMENTOS 10
@@ -77,6 +78,16 @@ int quick_sort_partition(LISTA* lista, int left, int right) {
     }
     swap(lista->A[j], lista->A[right]);
     return j;
+}
+
+void quick_sort_recursion(LISTA* lista, int left, int right) {
+    int j;
+    if (right <= left) return;
+
+    j = quick_sort_partition(lista, left, right);  // posição do pivot
+
+    quick_sort_recursion(lista, left, j - 1);   // ordena à esquerda do pivot
+    quick_sort_recursion(lista, j + 1, right);  // ordena à esquerda do pivot
 }
 
 int main() {
@@ -193,7 +204,7 @@ int main() {
 
 
 
-    // quick sort
+    // quick sort - particao
     lista = lista_base;
 
     // Exibindo o estado inicial da lista
@@ -218,6 +229,28 @@ int main() {
     tempo_gasto = ((double)(fim - inicio)) / CLOCKS_PER_SEC;
     printf("Tempo de execução: %.2f segundos\n", tempo_gasto);
 
+
+    // quick sort - completo
+    lista = lista_base;
+
+    // Exibindo o estado inicial da lista
+    printf("\nEstado inicial da lista:\n");
+    exibirLista(&lista);
+    printf("Numero de elementos na lista: %i.\n", tamanho(&lista));
+
+
+    printf("Ordenando a lista - quick sort\n");
+    inicio = clock();  // Início da medição
+    quick_sort_recursion(&lista, 0, TOTAL_ELEMENTOS - 1);
+    fim = clock();  // Fim da medição
+
+    // Exibindo o estado final da lista
+    printf("Estado final da lista:\n");
+    exibirLista(&lista);
+
+    // Calcula o tempo gasto em segundos
+    tempo_gasto = ((double)(fim - inicio)) / CLOCKS_PER_SEC;
+    printf("Tempo de execução: %.2f segundos\n", tempo_gasto);
 
 
 

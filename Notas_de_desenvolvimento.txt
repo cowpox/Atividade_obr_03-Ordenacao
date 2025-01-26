@@ -6,3 +6,5 @@
     - escolher o elemento da direita como pivot
     - reposicionar o pivot (inplace) para que os elementos menores ou iguais fiquem à sua direita
     e os maiores fiquem à sua direita
+6) Quick sort - parte recursiva
+

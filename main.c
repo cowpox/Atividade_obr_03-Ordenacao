@@ -8,6 +8,8 @@ typedef REGISTRO ITEM;
 #define key(A) (A.chave)
 // #define less(A, B) (key(A) < key(B)) // para apenas 1 chave
 #define less(A, B) ((key(A) < key(B)) || (key(A) == key(B) && (A.chave2 < B.chave2))) // para 2 chaves
+// #define lessequal(A, B) (key(A) <= key(B)) // para apenas 1 chave
+#define lessequal(A, B) ((key(A) < key(B)) || (key(A) == key(B) && (A.chave2 <= B.chave2))) // para 2 chaves
 #define swap(A, B) {ITEM temp = A; A = B; B = temp;}
 #define comp_swap(A, B) {if (less(B, A)) swap(A, B);}
 #define TOTAL_ELEMENTOS 50
@@ -22,31 +24,58 @@ void bubble_sort_iterativo(LISTA* lista, int left, int right) {
     }
 }
 
+int quick_sort_partition(LISTA* lista, int left, int right) {
+    ITEM pivot = lista->A[right];  // vamos iniciar escolhendo o pivot pela direita
+    int j = left;
+    for (int k = left; k < right; k++) {
+        if (lessequal(lista->A[k], pivot)) {
+            swap(lista->A[k], lista->A[j]);
+            j++;
+        }
+    }
+    swap(lista->A[j], lista->A[right]);
+    return j;
+}
+
+void quick_sort_recursion(LISTA* lista, int left, int right) {
+    int j;
+    if (right <= left) return;
+
+    j = quick_sort_partition(lista, left, right);  // posição do pivot
+
+    quick_sort_recursion(lista, left, j - 1);   // ordena à esquerda do pivot
+    quick_sort_recursion(lista, j + 1, right);  // ordena à esquerda do pivot
+}
 
 int main() {
-    LISTA lista_base, lista;
+    
+     LISTA lista_base, lista;
     // Inicializa o gerador de números aleatórios com uma semente baseada no tempo atual
     srand(time(NULL));
     clock_t inicio, fim;
     double tempo_gasto;
 
+    inicializarLista(&lista_base);
     inicializarLista(&lista);
-
+    
     // Nome do arquivo CSV
     const char* nomeArquivo = "pratos_teste.csv";
 
     // Carregar dados do CSV para a lista
-    if (carregarDadosCSV(nomeArquivo, &lista)) {
+    if (carregarDadosCSV(nomeArquivo, &lista_base)) {
         printf("Dados carregados com sucesso!\n");
     } else {
         printf("Falha ao carregar os dados.\n");
     }
 
     // Exibir os dados carregados
-    exibirLista(&lista);
+    exibirLista(&lista_base);
+
+
+
 
     // bubble sort iterativo
-   
+    lista = lista_base;
     // Exibindo o estado inicial da lista
     printf("\nEstado inicial da lista:\n");
     exibirLista(&lista);
@@ -56,6 +85,30 @@ int main() {
     printf("Ordenando a lista - bubble_sort iterativo\n");
     inicio = clock();  // Início da medição
     bubble_sort_iterativo(&lista, 0, 20);
+    fim = clock();  // Fim da medição
+
+    // Exibindo o estado final da lista
+    printf("Estado final da lista:\n");
+    exibirLista(&lista);
+
+    // Calcula o tempo gasto em segundos
+    tempo_gasto = ((double)(fim - inicio)) / CLOCKS_PER_SEC;
+    printf("Tempo de execução: %.2f segundos\n", tempo_gasto);
+    
+    
+    
+    
+    // quick sort recursivo
+    lista = lista_base;
+    // Exibindo o estado inicial da lista
+    printf("\nEstado inicial da lista:\n");
+    exibirLista(&lista);
+    printf("Numero de elementos na lista: %i.\n", tamanho(&lista));
+
+
+    printf("Ordenando a lista - quicksort recursivo\n");
+    inicio = clock();  // Início da medição
+    quick_sort_recursion(&lista, 0, 20);
     fim = clock();  // Fim da medição
 
     // Exibindo o estado final da lista
