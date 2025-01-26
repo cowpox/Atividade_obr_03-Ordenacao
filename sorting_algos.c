@@ -6,10 +6,12 @@
 //convenções
 typedef REGISTRO ITEM;
 #define key(A) (A.chave)
-#define less(A, B) (key(A) < key(B))
+// #define less(A, B) (key(A) < key(B)) // para apenas 1 chave
+#define less(A, B) ((key(A) < key(B)) || (key(A) == key(B) && (A.chave2 < B.chave2))) // para 2 chaves
+#define lessequal(A, B) (key(A) <= key(B))
 #define swap(A, B) {ITEM temp = A; A = B; B = temp;}
 #define comp_swap(A, B) {if (less(B, A)) swap(A, B);}
-#define TOTAL_ELEMENTOS 50
+#define TOTAL_ELEMENTOS 10
 
 void selection_sort_recursivo(LISTA* lista, int left, int right) {
     // condicao de parada
@@ -62,6 +64,19 @@ void bubble_sort_iterativo(LISTA* lista, int left, int right) {
             }
         }
     }
+}
+
+int quick_sort_partition(LISTA* lista, int left, int right) {
+    ITEM pivot = lista->A[right];  // vamos iniciar escolhendo o pivot pela direita
+    int j = left;
+    for (int k = left; k < right; k++) {
+        if (lessequal(lista->A[k], pivot)) {
+            swap(lista->A[k], lista->A[j]);
+            j++;
+        }
+    }
+    swap(lista->A[j], lista->A[right]);
+    return j;
 }
 
 int main() {
@@ -166,6 +181,34 @@ int main() {
     inicio = clock();  // Início da medição
     bubble_sort_iterativo(&lista, 0, TOTAL_ELEMENTOS - 1);
     fim = clock();  // Fim da medição
+
+    // Exibindo o estado final da lista
+    printf("Estado final da lista:\n");
+    exibirLista(&lista);
+
+    // Calcula o tempo gasto em segundos
+    tempo_gasto = ((double)(fim - inicio)) / CLOCKS_PER_SEC;
+    printf("Tempo de execução: %.2f segundos\n", tempo_gasto);
+
+
+
+
+    // quick sort
+    lista = lista_base;
+
+    // Exibindo o estado inicial da lista
+    printf("\nEstado inicial da lista:\n");
+    exibirLista(&lista);
+    printf("Numero de elementos na lista: %i.\n", tamanho(&lista));
+
+
+    printf("Particionando a lista - retorna a posição do pivot\n");
+    inicio = clock();  // Início da medição
+    int pivot_idx = quick_sort_partition(&lista, 0, TOTAL_ELEMENTOS - 1);
+    fim = clock();  // Fim da medição
+
+    // Exibindo a posição do pivot
+    printf("A posição do pivot é %i\n", pivot_idx);
 
     // Exibindo o estado final da lista
     printf("Estado final da lista:\n");

@@ -11,7 +11,7 @@ typedef int TIPOCHAVE;
 typedef struct {
     TIPOCHAVE chave;   // prioridade
     TIPOCHAVE chave2;  // tempo de preparo
-    char nome[30];     // nome do prato
+    char nome[50];     // nome do prato
 } REGISTRO;
 
 typedef struct {
