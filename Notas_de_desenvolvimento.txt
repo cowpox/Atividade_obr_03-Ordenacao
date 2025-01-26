@@ -1,2 +1,4 @@
 1) Vou utilizar a estrutura da lista linear sequencial apresentada em aula para realizar os testes
-2) A seguir, implementar uma função para ordenar pelo bubble, com 1 chave
+2) A seguir, implementar uma função para ordenar pelo bubble, com 1 chave, em ordem crescente (falta mudar)
+3) Implementei uma função para ler o CSV e preencher os campos de cada struct do array
+4) Adaptar a função bubble_sort para ler 2 chaves
