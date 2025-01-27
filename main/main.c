@@ -93,7 +93,7 @@ int main() {
     fprintf(resultado_csv, "Execucao,Algoritmo,Tempo (s)\n");
 
     // Nome do arquivo de dados
-    const char* nomeArquivo = "../data/restaurante_pratos_1k.csv";
+    const char* nomeArquivo = "../data/restaurante_pratos_300k.csv"; // <= mudar aqui o nome do arquivo a ser lido
 
     // Carregar dados do CSV
     if (carregarDadosCSV(nomeArquivo, lista_base)) {
