@@ -39,4 +39,6 @@ para comparações posteriores
     Cabeçalho com os campos: prioridade, tempo, nome.
     
 13) realizados testes com 500k, 300k, 100k, 10k, 5k e 1k de registros.
-14) 
+14) calculadas as medidas descritivas dos resultados e plotado grafico comparativo
+15) relatorio de resultados e de justificativa de pivot
+16) reestruturacao de arquivos e producao dos documentos
