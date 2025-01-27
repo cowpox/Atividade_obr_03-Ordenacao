@@ -1,0 +1,31 @@
+Execucao,Algoritmo,Tempo (s)
+1,Quick Sort (Pivô Direito),0.018
+1,Quick Sort (Mediana de 3),0.019
+1,Bubble Sort,48.532
+2,Quick Sort (Pivô Direito),0.019
+2,Quick Sort (Mediana de 3),0.019
+2,Bubble Sort,47.659
+3,Quick Sort (Pivô Direito),0.019
+3,Quick Sort (Mediana de 3),0.018
+3,Bubble Sort,47.555
+4,Quick Sort (Pivô Direito),0.019
+4,Quick Sort (Mediana de 3),0.019
+4,Bubble Sort,47.740
+5,Quick Sort (Pivô Direito),0.019
+5,Quick Sort (Mediana de 3),0.020
+5,Bubble Sort,47.647
+6,Quick Sort (Pivô Direito),0.018
+6,Quick Sort (Mediana de 3),0.019
+6,Bubble Sort,48.562
+7,Quick Sort (Pivô Direito),0.018
+7,Quick Sort (Mediana de 3),0.018
+7,Bubble Sort,47.684
+8,Quick Sort (Pivô Direito),0.019
+8,Quick Sort (Mediana de 3),0.019
+8,Bubble Sort,47.772
+9,Quick Sort (Pivô Direito),0.018
+9,Quick Sort (Mediana de 3),0.019
+9,Bubble Sort,47.756
+10,Quick Sort (Pivô Direito),0.020
+10,Quick Sort (Mediana de 3),0.019
+10,Bubble Sort,48.961
